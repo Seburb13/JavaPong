@@ -15,6 +15,8 @@ var rightPressed = false;
 var leftPressed = false;
 var score = 0;
 
+let plName = prompt("Podaj swoje imię:");
+
 // Obsługa poruszania się paletki
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -55,7 +57,7 @@ function drawPaddle() {
 function drawScore() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
-    ctx.fillText("Punkty: " + score, 8, 20);
+    ctx.fillText(plName + ": " + score, 8, 20);
 }
 
 // Aktualizacja położenia piłki i paletki, spr pkt
