@@ -13,8 +13,10 @@ var paddleWidth = 75;
 var paddleX = (canvas.width - paddleWidth) / 2;
 var rightPressed = false;
 var leftPressed = false;
-var score = 0;
+let score = 0;
+let lscore = + score;
 
+// Imię gracza
 let plName = prompt("Podaj swoje imię:");
 
 // Obsługa poruszania się paletki
@@ -58,18 +60,20 @@ function drawScore() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
     ctx.fillText(plName + ": " + score, 8, 20);
+    ctx.fillText("Ostatni wynik: " + lscore, 670, 20);
 }
 
 // Aktualizacja położenia piłki i paletki, spr pkt
 function update() {
+    
     if (rightPressed && paddleX < canvas.width - paddleWidth) {
         paddleX += 7;
     } else if (leftPressed && paddleX > 0) {
         paddleX -= 7;
     }
 
-    x += dx;
-    y += dy;
+    x += dx +1;
+    y += dy +1;
 
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
@@ -81,7 +85,7 @@ function update() {
             dy = -dy;
             score++;
         } else {
-            alert("Koniec gry!");
+            alert("Koniec gry! Zdobyłeś punktów: " + score);
             document.location.reload();
         }
     }
