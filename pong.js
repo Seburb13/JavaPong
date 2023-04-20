@@ -1,8 +1,7 @@
+//Najwyższy wynik
 if (localStorage.getItem("bestScore") === null) {
     localStorage.setItem("bestScore", "0");
 }
-
-
 
 // Tworzenie płótna
 var canvas = document.getElementById("myCanvas");
@@ -95,18 +94,7 @@ function update() {
     }
     if (y + dy < ballRadius) {
         dy = -dy;
-    } else if (y + dy > canvas.height - ballRadius) {
-        if (x > paddleX && x < paddleX + paddleWidth) {
-            dy = -dy;
-            score++;
-        } else {
-            alert("Koniec gry! Zdobyłeś punktów: " + score+"! Najwyższy wynik: "+ localStorage.getItem("bestScore"));
-            document.location.reload();
-        }
-    }
-}
-
-// Sprawdzenie, czy piłka ma przyśpieszyć
+        // Sprawdzenie, czy piłka ma przyśpieszyć
 if (lscore !== score && score % 2 === 0) {
     accelerate = true;
     lscore = score;
@@ -122,6 +110,18 @@ if (accelerate) {
         dx -= 1;
     }
 }
+    } else if (y + dy > canvas.height - ballRadius) {
+        if (x > paddleX && x < paddleX + paddleWidth) {
+            dy = -dy;
+            score++;
+        } else {
+            alert("Koniec gry! Zdobyłeś punktów: " + score+"! Najwyższy wynik: "+ localStorage.getItem("bestScore"));
+            document.location.reload();
+        }
+    }
+}
+
+
 
 // Rysowanie gry
 function draw() {
