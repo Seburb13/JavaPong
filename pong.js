@@ -20,7 +20,12 @@ var paddleX = (canvas.width - paddleWidth) / 2;
 var rightPressed = false;
 var leftPressed = false;
 let score = 0;
-let lscore = + score;
+
+// Zmienne przechowujące informacje o liczbie punktów i o tym, czy piłka ma przyśpieszyć
+let lscore = 0;
+let accelerate = false;
+
+
 
 // Imię gracza
 let plName = prompt("Podaj swoje imię:");
@@ -98,6 +103,23 @@ function update() {
             alert("Koniec gry! Zdobyłeś punktów: " + score);
             document.location.reload();
         }
+    }
+}
+
+// Sprawdzenie, czy piłka ma przyśpieszyć
+if (lscore !== score && score % 2 === 0) {
+    accelerate = true;
+    lscore = score;
+} else {
+    accelerate = false;
+}
+
+// Aktualizacja prędkości piłki w osi X w przypadku, gdy ma przyśpieszyć
+if (accelerate) {
+    if (dx > 0) {
+        dx += 1;
+    } else {
+        dx -= 1;
     }
 }
 
