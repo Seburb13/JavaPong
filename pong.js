@@ -7,6 +7,21 @@ if (localStorage.getItem("bestScore") === null) {
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
+// Utworzenie przycisku reset
+var resetButton = document.createElement("button");
+resetButton.innerHTML = "Reset wyniku";
+document.body.appendChild(resetButton);
+
+//Pozycja przycisku reset 
+resetButton.style.position = "fixed";
+resetButton.style.top = "9px";
+resetButton.style.left = "715px";
+
+// Obsługa kliknięcia na przycisk reset
+resetButton.addEventListener("click", function() {
+    localStorage.setItem("bestScore", "0");
+});
+
 // Inicjalizacja paletki i piłki i pkt
 var ballRadius = 10;
 var x = canvas.width / 2;
@@ -23,8 +38,6 @@ let score = 0;
 // Zmienne przechowujące informacje o liczbie punktów i o tym, czy piłka ma przyśpieszyć
 let lscore = 0;
 let accelerate = false;
-
-
 
 // Imię gracza
 let plName = prompt("Podaj swoje imię:");
@@ -70,7 +83,7 @@ function drawScore() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
     ctx.fillText(plName + ": " + score, 8, 20);
-    ctx.fillText("Najwyższy wynik: " + localStorage.getItem("bestScore"), 650, 20);
+    ctx.fillText("Rekord: " + localStorage.getItem("bestScore"), 715, 20);
 }
 
 // Aktualizacja położenia piłki i paletki, spr pkt
@@ -84,7 +97,7 @@ function update() {
 
     x += dx;
     y += dy;
-
+    
     if (score > localStorage.getItem("bestScore")) {
         localStorage.setItem("bestScore", score);
     }
@@ -94,6 +107,7 @@ function update() {
     }
     if (y + dy < ballRadius) {
         dy = -dy;
+        
         // Sprawdzenie, czy piłka ma przyśpieszyć
 if (lscore !== score && score % 2 === 0) {
     accelerate = true;
@@ -101,8 +115,7 @@ if (lscore !== score && score % 2 === 0) {
 } else {
     accelerate = false;
 }
-
-// Aktualizacja prędkości piłki w osi X w przypadku, gdy ma przyśpieszyć
+        // Aktualizacja prędkości piłki w osi X w przypadku, gdy ma przyśpieszyć
 if (accelerate) {
     if (dx > 0) {
         dx += 1;
@@ -115,13 +128,12 @@ if (accelerate) {
             dy = -dy;
             score++;
         } else {
-            alert("Koniec gry! Zdobyłeś punktów: " + score+"! Najwyższy wynik: "+ localStorage.getItem("bestScore"));
+            canvas.style.borderColor = "red";
+            ctx.fillText("Koniec gry! Zdobyłeś punktów: " + score+"! Rekord: "+ localStorage.getItem("bestScore"), 220, 220);
             document.location.reload();
         }
     }
 }
-
-
 
 // Rysowanie gry
 function draw() {
