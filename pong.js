@@ -129,7 +129,7 @@ if (accelerate) {
             score++;
         } else {
             canvas.style.borderColor = "red";
-            ctx.fillText("Koniec gry! Zdobyłeś punktów: " + score+"! Rekord: "+ localStorage.getItem("bestScore"), 220, 220);
+            alert("Koniec gry! Zdobyłeś punktów: " + score+"! Rekord: "+ localStorage.getItem("bestScore"));
             document.location.reload();
         }
     }
