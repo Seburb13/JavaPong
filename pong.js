@@ -1,3 +1,9 @@
+if (localStorage.getItem("bestScore") === null) {
+    localStorage.setItem("bestScore", "0");
+}
+
+
+
 // Tworzenie płótna
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
@@ -6,8 +12,8 @@ var ctx = canvas.getContext("2d");
 var ballRadius = 10;
 var x = canvas.width / 2;
 var y = canvas.height - 30;
-var dx = 3;
-var dy = -3;
+var dx = 2;
+var dy = -2;
 var paddleHeight = 10;
 var paddleWidth = 75;
 var paddleX = (canvas.width - paddleWidth) / 2;
@@ -60,7 +66,7 @@ function drawScore() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
     ctx.fillText(plName + ": " + score, 8, 20);
-    ctx.fillText("Ostatni wynik: " + lscore, 670, 20);
+    ctx.fillText("Najwyższy wynik: " + localStorage.getItem("bestScore"), 650, 20);
 }
 
 // Aktualizacja położenia piłki i paletki, spr pkt
@@ -72,8 +78,12 @@ function update() {
         paddleX -= 7;
     }
 
-    x += dx +1;
-    y += dy +1;
+    x += dx;
+    y += dy;
+
+    if (score > localStorage.getItem("bestScore")) {
+        localStorage.setItem("bestScore", score);
+    }
 
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
