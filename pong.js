@@ -35,7 +35,7 @@ var rightPressed = false;
 var leftPressed = false;
 let score = 0;
 
-// Zmienne przechowujące informacje o liczbie punktów i o tym, czy piłka ma przyśpieszyć
+// Zmienne przechowujące informacje o rekordzie i czy piłka ma przyśpieszyć
 let lscore = 0;
 let accelerate = false;
 
@@ -94,20 +94,21 @@ function update() {
     } else if (leftPressed && paddleX > 0) {
         paddleX -= 7;
     }
-
+     
     x += dx;
     y += dy;
     
     if (score > localStorage.getItem("bestScore")) {
         localStorage.setItem("bestScore", score);
     }
-
+    
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
     }
+        
     if (y + dy < ballRadius) {
         dy = -dy;
-        
+        canvas.style.borderColor = "rgb(0, 132, 165)";  
         // Sprawdzenie, czy piłka ma przyśpieszyć
 if (lscore !== score && score % 2 === 0) {
     accelerate = true;
@@ -127,6 +128,7 @@ if (accelerate) {
         if (x > paddleX && x < paddleX + paddleWidth) {
             dy = -dy;
             score++;
+            canvas.style.borderColor = "green";
         } else {
             canvas.style.borderColor = "red";
             alert("Koniec gry! Zdobyłeś punktów: " + score+"! Rekord: "+ localStorage.getItem("bestScore"));
