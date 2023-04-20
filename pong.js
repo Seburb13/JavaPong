@@ -100,7 +100,7 @@ function update() {
             dy = -dy;
             score++;
         } else {
-            alert("Koniec gry! Zdobyłeś punktów: " + score);
+            alert("Koniec gry! Zdobyłeś punktów: " + score+"! Najwyższy wynik: "+ localStorage.getItem("bestScore"));
             document.location.reload();
         }
     }
